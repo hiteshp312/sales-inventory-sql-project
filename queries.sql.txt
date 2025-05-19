@@ -1,0 +1,149 @@
+--List all products and their current stock
+select 
+	ProductName,
+	Category,
+	QuantityInStock
+from dbo.Products 
+order by QuantityInStock DESC
+
+
+--Get details of all customers
+
+select
+*
+from dbo.Customers
+
+-- Show all sales made after May 12, 2025
+
+select 
+*
+from dbo.Sales
+where SaleDate > '2025-05-12'
+
+--List all sale items sold in a single sale (SaleID = 3)
+select
+	a.SaleID,
+	b.ProductName,
+	a.Quantity,
+	a.Price
+from dbo.Sale_Items a
+left join dbo.Products b
+on a.ProductID = b.ProductID
+where a.SaleID = 3
+
+--Find all products in the 'Electronics' category
+
+select 
+*
+from dbo.Products 
+where Category = 'Electronics';
+
+
+--Show total sales amount per customer
+
+select
+b.CustomerName,
+SUM(a.TotalAmount) as total_sales
+from dbo.Sales a
+left join dbo.Customers b
+on a.CustomerID = b.CustomerID
+Group by b.CustomerName 
+ORDER BY total_sales DESC
+
+--Get the number of items sold for each product
+
+select
+b.ProductName,
+SUM(a.Quantity) as items_sold
+from dbo.Sale_Items a
+left join dbo.Products b
+on a.ProductID = b.ProductID
+Group by b.ProductName
+Order by items_sold DESC
+
+
+--List products with stock less than 25
+
+
+select 
+* 
+from dbo.Products 
+where QuantityInStock < 25
+ORDER BY QuantityInStock ASC
+
+--Show total quantity purchased from suppliers (stocked) per product
+
+select
+	c.ProductName,
+	SUM(a.Quantity) as Purchased_Quantity
+from dbo.Stock_Entries a 
+left join dbo.Products c  
+on a.ProductID = c.ProductID
+Group By c.ProductName
+Order By Purchased_Quantity DESC
+
+
+--List customers with more than 1 sale
+
+select
+b.CustomerName,
+Count(*) as Customer_sales
+from dbo.Sales a
+left join dbo.Customers b
+on a.CustomerID = b.CustomerID
+Group By b.CustomerName
+having Count(*) > 1
+
+
+
+-- Top 3 best-selling products (by quantity sold)
+ 
+ 
+select
+	ProductName,
+	quantity_sold
+from (select
+	o.ProductName,
+	SUM(a.Quantity) as quantity_sold,
+	RANK() Over(Order by SUM(a.Quantity) DESC) as Rank
+ from dbo.Sale_Items a
+ left join dbo.Products o
+on a.ProductID = o.ProductID
+Group by ProductName 
+)t where Rank <= 3
+
+
+--Monthly total sales summary
+
+select 
+DATEPART(MONTH,SaleDate) as month,
+SUM(TotalAmount) as total_sales
+from dbo.Sales
+Group by DATEPART(MONTH,SaleDate)
+
+
+
+
+
+select * from customer_purchases;
+SELECT * FROM customer_purchases WHERE CustomerName = 'Rahul Sharma';
+
+-- Find customers who purchased the most expensive item
+
+select
+c.CustomerName
+from dbo.Sale_Items a
+left join dbo.Sales b
+on a.SaleID = b.SaleID
+left join dbo.Customers c
+on b.CustomerID = c.CustomerID
+where a.Price = (select MAX(Price) from dbo.Sale_Items);
+
+--Running total of sales by date
+
+select
+SaleDate,
+SUM(TotalAmount) as sales,
+SUM(SUM(TotalAmount)) OVER(ORDER BY SaleDate) as Running_total
+from dbo.Sales
+Group BY SaleDate

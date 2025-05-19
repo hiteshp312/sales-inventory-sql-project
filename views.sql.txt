@@ -1,0 +1,21 @@
+
+
+
+--Create a view to show customer purchases
+
+Create VIEW customer_purchases as
+select
+a.SaleID,
+a.SaleDate,
+cc.CustomerName,
+c.Quantity, 
+sc.ProductName
+from dbo.Sales a
+left join dbo.Sale_Items c
+on a.SaleID = c.SaleID 
+left join dbo.Customers cc
+on a.CustomerID = cc.CustomerID
+left join dbo.Products sc
+on c.ProductID = sc.ProductID ;
+
+

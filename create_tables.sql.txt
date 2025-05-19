@@ -1,0 +1,51 @@
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category VARCHAR(50),
+    UnitPrice DECIMAL(10,2),
+    QuantityInStock INT
+);
+
+CREATE TABLE Suppliers (
+    SupplierID INT PRIMARY KEY,
+    SupplierName VARCHAR(100),
+    ContactNumber VARCHAR(15)
+);
+
+
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(15)
+);
+
+CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    SaleDate DATE,
+    CustomerID INT,
+    TotalAmount DECIMAL(10,2),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+CREATE TABLE Sale_Items (
+    SaleItemID INT PRIMARY KEY,
+    SaleID INT,
+    ProductID INT,
+    Quantity INT,
+    Price DECIMAL(10,2),
+    FOREIGN KEY (SaleID) REFERENCES Sales(SaleID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+
+CREATE TABLE Stock_Entries (
+    EntryID INT PRIMARY KEY,
+    ProductID INT,
+    SupplierID INT,
+    Quantity INT,
+    EntryDate DATE,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
+);
+

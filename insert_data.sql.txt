@@ -1,0 +1,83 @@
+--Products
+INSERT INTO Products VALUES
+(1, 'Wireless Mouse', 'Electronics', 599.00, 50),
+(2, 'Keyboard', 'Electronics', 899.00, 30),
+(3, 'Notebook', 'Stationery', 49.00, 100),
+(4, 'Pen Drive 32GB', 'Electronics', 399.00, 75),
+(5, 'Water Bottle', 'Household', 199.00, 20),
+(6, 'Desk Organizer', 'Stationery', 149.00, 40),
+(7, 'Bluetooth Speaker', 'Electronics', 1299.00, 15),
+(8, 'Whiteboard Marker', 'Stationery', 29.00, 60),
+(9, 'Laptop Stand', 'Electronics', 799.00, 25),
+(10, 'Coffee Mug', 'Household', 149.00, 35);
+
+--Suppliers
+INSERT INTO Suppliers VALUES
+(1, 'Tech Distributors Pvt Ltd', '9876543210'),
+(2, 'OfficeMart India', '9123456780'),
+(3, 'Stationery World', '9998887776'),
+(4, 'Everyday Essentials Ltd', '8888877777'),
+(5, 'ElectroHub', '9990001112');
+
+--Customers
+INSERT INTO Customers VALUES
+(1, 'Rahul Sharma', 'rahul@gmail.com', '9988776655'),
+(2, 'Sneha Patel', 'sneha.patel@yahoo.com', '9876543210'),
+(3, 'Amit Verma', 'amitv@outlook.com', '9123456789'),
+(4, 'Priya Mehta', 'priya.mehta@gmail.com', '9012345678'),
+(5, 'Rohit Sinha', 'rohits@gmail.com', '9080706050'),
+(6, 'Neha Kulkarni', 'neha.kulkarni@gmail.com', '9023456789');
+
+--Stock_Entries
+INSERT INTO Stock_Entries VALUES
+(1, 1, 1, 100, '2025-05-01'),
+(2, 2, 1, 50, '2025-05-01'),
+(3, 3, 3, 200, '2025-05-02'),
+(4, 4, 1, 150, '2025-05-03'),
+(5, 5, 2, 40, '2025-05-04'),
+(6, 6, 3, 70, '2025-05-05'),
+(7, 7, 5, 30, '2025-05-06'),
+(8, 8, 3, 100, '2025-05-06'),
+(9, 9, 5, 50, '2025-05-07'),
+(10, 10, 4, 80, '2025-05-07');
+
+
+--Sales
+INSERT INTO Sales VALUES
+(1, '2025-05-10', 1, 998.00),
+(2, '2025-05-11', 2, 448.00),
+(3, '2025-05-12', 3, 648.00),
+(4, '2025-05-13', 4, 497.00),
+(5, '2025-05-13', 5, 1299.00),
+(6, '2025-05-14', 6, 499.00),
+(7, '2025-05-15', 1, 148.00);
+	
+
+
+--Sale_Items
+INSERT INTO Sale_Items VALUES
+(1, 1, 1, 1, 599.00),  -- Rahul bought 1 Wireless Mouse
+(2, 1, 2, 1, 399.00),  -- Rahul bought 1 Keyboard
+
+(3, 2, 3, 4, 49.00),   -- Sneha bought 4 Notebooks
+
+(4, 3, 4, 1, 399.00),  -- Amit bought 1 Pen Drive
+(5, 3, 5, 1, 199.00),  -- Amit bought 1 Water Bottle
+(6, 3, 3, 1, 49.00);   -- Amit bought 1 Notebook
+-- Priya buys a Desk Organizer and a Marker
+INSERT INTO Sale_Items VALUES
+(7, 4, 6, 2, 149.00),      -- 2 Desk Organizers
+(8, 4, 8, 5, 29.00);       -- 5 Markers
+
+-- Rohit buys a Bluetooth Speaker
+INSERT INTO Sale_Items VALUES
+(9, 5, 7, 1, 1299.00);     -- 1 Bluetooth Speaker
+
+-- Neha buys a Laptop Stand and a Notebook
+INSERT INTO Sale_Items VALUES
+(10, 6, 9, 1, 799.00),     -- 1 Laptop Stand
+(11, 6, 3, 1, 49.00);      -- 1 Notebook
+
+-- Rahul comes back to buy a Coffee Mug
+INSERT INTO Sale_Items VALUES
+(12, 7, 10, 1, 149.00);    -- 1 Coffee Mug
